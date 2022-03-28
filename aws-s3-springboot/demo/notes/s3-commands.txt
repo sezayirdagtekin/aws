@@ -1,0 +1,84 @@
+#Login
+aws configure
+
+aws ec2 describe-regions
+
+#Create bucket(public)
+#Later,Block all public access from console
+aws s3 mb s3://sezobucket
+
+#Remove bucket
+aws s3 rb s3://sezobucket
+
+#Upload file
+aws s3 cp hello.txt s3://sezobucket
+	upload: .\hello.txt to s3://sezobucket/hello.txt
+
+#Upload file and change name
+aws s3 cp hello.txt s3://sezobucket/hi.txt
+	upload: .\hello.txt to s3://sezobucket/hi.txt
+
+#Move file from local to public
+aws s3 mv hello.txt s3://sezobucket
+	move: .\hello.txt to s3://sezobucket/hello.txt
+
+#Move file from public to local
+aws s3 mv  s3://sezobucket/hello.txt ./
+	move: s3://sezobucket/hello.txt to .\hello.txt
+
+#Remove file(both local & public)
+aws s3 rm s3://sezobucket/hello.txt
+	delete: s3://sezobucket/hello.txt
+
+# List files in buckets
+aws s3 ls s3://sezobucket
+	2022-03-26 14:29:11          8 hello.txt
+	2022-03-26 13:39:58          8 hi.txt
+	2022-03-26 14:29:34       4075 twitter.jpeg
+
+#create  local directory
+mkdir aws-s3
+aws-s3> ls 
+#Create file
+ echo "this is fie" >> test.txt
+ ls
+	test.txt
+ 
+#sync file with cloud s3
+aws  s3 sync ./ s3://sezobucket
+     upload: .\test.txt to s3://sezobucket/test.txt
+
+#sync  cloud s3 with local directory.  --delete required,for deletion file
+aws  s3 sync ./ s3://sezobucket
+    upload: .\test.txt to s3://sezobucket/test.txt	
+aws  s3 sync s3://sezobucket ./ --delete
+	download: s3://sezobucket/hello.txt to .\hello.txt
+	download: s3://sezobucket/twitter.jpeg to .\twitter.jpeg
+
+#Create new bucket sync  with existing bucket
+aws s3 mb s3://newsezobucket
+   make_bucket: newsezobucket
+aws s3 sync  s3://sezobucket s3://newsezobucket
+	copy: s3://sezobucket/hello.txt to s3://newsezobucket/hello.txt
+	copy: s3://sezobucket/test.txt to s3://newsezobucket/test.txt
+	copy: s3://sezobucket/twitter.jpeg to s3://newsezobucket/twitter.jpeg
+
+#Delete bucket recursively
+aws s3 rm s3://newsezobucket --recursive
+	delete: s3://newsezobucket/test.txt
+	delete: s3://newsezobucket/hello.txt
+	delete: s3://newsezobucket/twitter.jpeg
+aws s3 rb s3://newsezobucket
+   remove_bucket: newsezobucket
+   
+#Expire s3 bucket file after 30 seconds
+aws s3 presign s3://sezobucket/test.txt  --expires-in 30
+  https://sezobucket........
+
+
+
+
+
+
+
+
