@@ -28,7 +28,7 @@ public class S3Controller {
 	@Autowired
 	private S3Service service;
 
-	@GetMapping
+	@GetMapping("/bucket/list")
 	public ResponseEntity<List<String>> getBuckets() {
 		log.info("List buckets...");
 		return new ResponseEntity<>(service.getBuckets(), HttpStatus.OK) ;
