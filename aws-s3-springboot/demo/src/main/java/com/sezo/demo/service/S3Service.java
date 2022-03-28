@@ -67,7 +67,6 @@ public class S3Service {
 	 */
 	public List<String> getBuckets() {
 		return s3Client.listBuckets().stream().map(Bucket::getName).toList();
-		
 	}
 	
 	/**

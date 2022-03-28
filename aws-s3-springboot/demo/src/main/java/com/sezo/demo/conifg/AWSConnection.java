@@ -1,5 +1,6 @@
 package com.sezo.demo.conifg;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,13 +14,12 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Configuration
 public class AWSConnection  {
 
-	private static final String SECRET_KEY = "?your secret key";
-	private static final String ACCESS_KEY = "?your access key";
-
-
-	@Bean
+	@Autowired
+	private AWSProperties properties;
+	
+@Bean
 	public AmazonS3 getAwsClient() {
-		AWSCredentials credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
+		AWSCredentials credentials = new BasicAWSCredentials(properties.getAccessKey(), properties.getSecretKey());
 
 		return AmazonS3ClientBuilder
 				  .standard()
