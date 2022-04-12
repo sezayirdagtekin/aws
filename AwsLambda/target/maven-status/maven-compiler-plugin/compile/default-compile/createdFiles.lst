@@ -1,0 +1,5 @@
+com\amazonaws\lambda\demo\FindProductLambda.class
+com\amazonaws\lambda\demo\response\ProductResponse.class
+com\amazonaws\lambda\demo\FunctionReadJsonFile.class
+com\amazonaws\lambda\demo\entity\Product.class
+com\amazonaws\lambda\demo\LambdaFunctionHandler.class
