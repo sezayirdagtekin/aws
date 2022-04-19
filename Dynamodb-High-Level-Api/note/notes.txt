@@ -1,0 +1,10 @@
+https://www.baeldung.com/spring-boot-failed-to-configure-data-source
+
+
+
+sample json for input
+{
+"name":"apple",
+"description":"red fresh apple ",
+"amount":4
+}
