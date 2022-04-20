@@ -8,3 +8,13 @@ sample json for input
 "description":"red fresh apple ",
 "amount":4
 }
+
+
+SupportMessage
+
+{
+    "department":"Help Desk",
+    "sentTime":"2022-05-22T10:15:33",
+    "urgency":4,
+    "message":"invalid product "
+    }
