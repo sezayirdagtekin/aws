@@ -64,8 +64,7 @@ public class UserMessageService {
 		try {
 
 			DynamoDBQueryExpression<UserMessage> queryExpression = new DynamoDBQueryExpression<UserMessage>()
-					.withScanIndexForward(false)
-					.withKeyConditionExpression("department = :department")
+					.withScanIndexForward(false).withKeyConditionExpression("department = :department")
 					.withExpressionAttributeValues(Map.of(":department", new AttributeValue().withS(department)));
 
 			return mapper.query(UserMessage.class, queryExpression);
@@ -76,17 +75,14 @@ public class UserMessageService {
 		}
 		return null;
 	}
-	
-	
-	public List<UserMessage> getAllForDepartmentOnDate(String department,String day) {
+
+	public List<UserMessage> getAllForDepartmentOnDate(String department, String day) {
 		try {
-		     DynamoDBQueryExpression<UserMessage> queryExpression = new DynamoDBQueryExpression<UserMessage>()
-		                .withKeyConditionExpression("department = :department AND begins_with(sentTime, :day)")
-		                .withExpressionAttributeValues(Map.of(
-		                        ":department", new AttributeValue().withS(department),
-		                        ":day", new AttributeValue().withS(day)
-		                ));
-		        return mapper.query(UserMessage.class, queryExpression);
+			DynamoDBQueryExpression<UserMessage> queryExpression = new DynamoDBQueryExpression<UserMessage>()
+					.withKeyConditionExpression("department=:department AND begins_with(sentTime, :day)")
+					.withExpressionAttributeValues(Map.of(":department", new AttributeValue().withS(department), 
+							":day",new AttributeValue().withS(day)));
+			return mapper.query(UserMessage.class, queryExpression);
 
 		} catch (AmazonServiceException e) {
 
@@ -94,7 +90,23 @@ public class UserMessageService {
 		}
 		return null;
 	}
-	
-	
-	
+
+	public List<UserMessage> getAllUrgencyMessages(String department, String urgency) {
+		try {
+
+			DynamoDBQueryExpression<UserMessage> queryExpression = new DynamoDBQueryExpression<UserMessage>()
+					.withKeyConditionExpression("department=:department").withFilterExpression("urgency > :urgency")
+					.withExpressionAttributeValues(Map.of(":department", new AttributeValue().withS(department),
+							":urgency", new AttributeValue().withN(urgency)
+
+					));
+
+			return mapper.query(UserMessage.class, queryExpression);
+		} catch (AmazonServiceException e) {
+
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

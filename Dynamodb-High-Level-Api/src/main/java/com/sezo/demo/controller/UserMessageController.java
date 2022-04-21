@@ -46,8 +46,15 @@ public class UserMessageController {
 
 	@GetMapping("/departmentOnDate")
 	public ResponseEntity<List<UserMessage>> getAllForDepartmentOnDate(@RequestParam("department") String department,
-			@RequestParam("department") String day) {
+			@RequestParam("day") String day) {
 		return new ResponseEntity<>(service.getAllForDepartmentOnDate(department, day), HttpStatus.OK);
+	}
+	
+
+	@GetMapping("/urgentmessages")
+	public ResponseEntity<List<UserMessage>> getAllUrgentMessages(@RequestParam("department") String department,
+			@RequestParam("urgency") String urgency) {
+		return new ResponseEntity<>(service.getAllUrgencyMessages(department, urgency), HttpStatus.OK);
 	}
 	
 
