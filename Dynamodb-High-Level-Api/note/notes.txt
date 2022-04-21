@@ -18,3 +18,15 @@ SupportMessage
     "urgency":4,
     "message":"invalid product "
     }
+    
+  
+  
+  Comment  
+    
+{
+    "itemId":"1",
+    "userId":"sezayir",
+    "sentTime":"2022-04-20T11:18:10",
+    "rating":3,
+    "message":"Not bad "
+    }
